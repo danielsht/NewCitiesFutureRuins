@@ -1,0 +1,17 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <style> body {padding: 0; margin: 0;} </style>
+</head>
+
+<body>
+	<button type="button" onclick="socketScript()"> Add Population </button>
+	<script type="text/javascript">
+		function socketScript() {
+			var socket = io('http://localhost');
+			socket.emit('user', {user: })
+		}
+	</script>
+</body>
+</html>

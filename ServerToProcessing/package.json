@@ -1,0 +1,15 @@
+{
+  "name": "server_to_processing",
+  "version": "1.0.0",
+  "description": "server communications to processing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Shteremberg",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.5.0"
+  }
+}
