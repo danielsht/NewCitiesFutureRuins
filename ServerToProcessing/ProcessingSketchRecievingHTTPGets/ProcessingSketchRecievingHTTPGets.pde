@@ -6,7 +6,7 @@ String dataIn;
 void setup(){
   size(200, 200);
   
-  get = new GetRequest("http://localhost:3000/HelloWorld");
+  get = new GetRequest("http://localhost:5000/CAsequence");
 }
 
 void draw() {

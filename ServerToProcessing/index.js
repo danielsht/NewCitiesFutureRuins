@@ -11,7 +11,7 @@ app.get('/HelloWorld', function (req, res) {
 });
 
 function listen() {
-	console.log('App listening on port 3000!')
+	console.log('App listening on port 5000!')
 };
 
 app.get('/CAsequence', function (req, res) {
@@ -23,8 +23,8 @@ var io = require('socket.io')(server);
 io.sockets.on('connection', function(socket) {
 	console.log("New Client: " + socket.id);
 
-	socket.on('user', function(data) {
-		this.data = data;
+	socket.on('user', function(UserData) {
+		data = UserData;
 	});
 
 	socket.on('disconnect', function() {
