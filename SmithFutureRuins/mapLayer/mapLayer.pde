@@ -1,8 +1,8 @@
 PImage p;
 String fileName = "Underlayment.png";  // a 2500 x 2500 pixel image;
-color pixArray[][] = new int[2500][2500];
-int xDim = 500;
-int yDim = 500;
+color pixArray[][] = new color[60][40];
+int xDim = 60;
+int yDim = 40;
 int matrix[][] = new int[xDim][yDim];
 
 void setup() {
@@ -15,61 +15,50 @@ void setup() {
 }
 
 void draw() {
-  
+  int sizer = 10;
   for (int i = 0; i < xDim; i ++) {
     for (int j = 0; j < yDim; j ++) {
-      stroke(color(matrix[i][j] * 40));
-      point(i + 100, j + 100);
+      noStroke();
+      fill(color(0, (1 + matrix[i][j]) * 40, 0));
+      rect(i*sizer, j*sizer, sizer, sizer);
     }
   }
 }
 
 void loadTwoDim() {
  int counter = 0;
-  for (int i = 0; i < xDim; i ++) {
-    for (int j = 0; j < yDim; j ++) {
-      pixArray[i][j] = p.pixels[counter];
-//      print(pixArray[i][j]+" ");
+  for (int i = 0; i < 40; i ++) {
+    for (int j = 0; j < 60; j ++) {
+      pixArray[j][i] = int((red(p.pixels[counter])+green(p.pixels[counter])+blue(p.pixels[counter]))/3);//p.pixels[counter];
       counter ++;
     }
-//    println();
   } 
-  /*
-  for (int i = 0; i < xDim; i ++) {
-    for (int j = 0; j < yDim; j ++) {
-      stroke(pixArray[i][j]);
-      point(i, j);
-    }
-  }*/ 
 }
 
-void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-river 5-road
-  for (int i = 0; i < 500; i ++) {
-    for (int j = 0; j < 200; j ++) {
- //     float view = i * (xDim * i) + j; // counting
-          if (pixArray[i*5][j*5] == color(255)) {
-            matrix[i][j] = 0;
+void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-gray4 5-river 6-road
+  for (int i = 0; i < yDim; i ++) {
+    for (int j = 0; j < xDim; j ++) {
+          if (pixArray[j][i] == 255) {
+            matrix[j][i] = 0;
           }  
-          if (pixArray[i*5][j*5] == color(200)) {
-            matrix[i][j] = 1;
+          if (pixArray[j][i] == 200) {
+            matrix[j][i] = 1;
           }  
-          if (pixArray[i*5][j*5] == color(175)) {
-            matrix[i][j] = 2;
+          if (pixArray[j][i] == 175) {
+            matrix[j][i] = 2;
           }
-          if (pixArray[i*5][j*5] == color(125)) {
-            matrix[i][j] = 3;
+          if (pixArray[j][i] == 150) {
+            matrix[j][i] = 3;
           }
-          if (pixArray[i*5][j*5] == color(100)) {
-            matrix[i][j] = 4;
+          if (pixArray[j][i] == 125) {
+            matrix[j][i] = 4;
           }
-          if (pixArray[i*5][j*5] == color(150)) {
-            matrix[i][j] = 5;
+          if (pixArray[j][i] == 100) {
+            matrix[j][i] = 5;
           }
-          if (pixArray[i*5][j*5] == color(0)) {
-            matrix[i][j] = 6;
+          if (pixArray[j][i] == 0) {
+            matrix[j][i] = 6;
           }
-          print(matrix[i][j]);
     } 
-    println();
   }
 }
