@@ -4,53 +4,41 @@
 
 PImage p;
 String fileName = "Underlayment.png";  // a 2500 x 2500 pixel image;
-color pixArray[][] = new color[60][40];
+
 int xDim = 60;
 int yDim = 40;
+int zDim = 20;
+color pixArray[][] = new color[xDim][yDim];
 Cube matrix[][] = new Cube[xDim][yDim];
-int sizer = 10;
+CellOrganism ca = new CellOrganism(xDim, yDim);
+int sizer = 15;
 
 void setup() {
-  size(1000, 800, P3D);
+  //frameRate(1);
+  size(1200, 800, P3D);
   p = loadImage(fileName);
   p.loadPixels();
   loadTwoDim();
   initMatrix();
-  //  noLoop();
-//  cam = new PeasyCam(this, 1000);
-//  cam.setMinimumDistance(500);
-//  cam.setMaximumDistance(1000);
+  ca.initGrid();
+  readTerrain();
+  //ca.createCenter(20,20);
+  //ca.createCenter(24,24);
+  //ca.createCenter(20,24);
 }
 
 void draw() {
   background(45);
-  color c = color(0, 0, 0);
-  int elev = 0;
-  int sizer = 6;
-  for (int i = 0; i < xDim-1; i ++) {
-    for (int j = 0; j < yDim-1; j ++) {
-      matrix[i][j].display();
-      fill(matrix[i][j].c);
-      beginShape();
-      vertex(matrix[i][j].p2[0], matrix[i][j].p2[1], matrix[i][j].p2[2]);
-      vertex(matrix[i+1][j].p1[0], matrix[i+1][j].p1[1], matrix[i+1][j].p1[2]);
-      vertex(matrix[i+1][j].p4[0], matrix[i+1][j].p4[1], matrix[i+1][j].p4[2]);
-      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
-      endShape(CLOSE);
-      beginShape();
-      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
-      vertex(matrix[i+1][j].p4[0], matrix[i+1][j].p4[1], matrix[i+1][j].p4[2]);
-      vertex(matrix[i+1][j+1].p1[0], matrix[i+1][j+1].p1[1], matrix[i+1][j+1].p1[2]);
-      vertex(matrix[i][j+1].p2[0], matrix[i][j+1].p2[1], matrix[i][j+1].p2[2]);
-      endShape(CLOSE);
-      beginShape();
-      vertex(matrix[i][j].p4[0], matrix[i][j].p4[1], matrix[i][j].p4[2]);
-      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
-      vertex(matrix[i][j+1].p2[0], matrix[i][j+1].p2[1], matrix[i][j+1].p2[2]);
-      vertex(matrix[i][j+1].p1[0], matrix[i][j+1].p1[1], matrix[i][j+1].p1[2]);
-      endShape(CLOSE);
-    }
-  }
+  //translate(-40,0,-250);
+  rotateX(-1);
+  renderMatrix();
+  ca.update();
+  ca.renderCells();
+  //delay(500);
+  //camera(200, 0, 700.0, // eyeX, eyeY, eyeZ
+  //       width/2+100, height-100, 100, // centerX, centerY, centerZ
+  //       0.0, 0.5, 0.0);
+  //camera(0, 100, 0);
 }
 
 void loadTwoDim() {
@@ -91,3 +79,65 @@ void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-gray4 5-river 6-road
   }
 }
 
+void renderMatrix() {
+  for (int i = 0; i < xDim-1; i ++) {
+    for (int j = 0; j < yDim-1; j ++) {
+      matrix[i][j].display();
+      fill(matrix[i][j].c);
+      beginShape();
+      vertex(matrix[i][j].p2[0], matrix[i][j].p2[1], matrix[i][j].p2[2]);
+      vertex(matrix[i+1][j].p1[0], matrix[i+1][j].p1[1], matrix[i+1][j].p1[2]);
+      vertex(matrix[i+1][j].p4[0], matrix[i+1][j].p4[1], matrix[i+1][j].p4[2]);
+      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
+      endShape(CLOSE);
+      beginShape();
+      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
+      vertex(matrix[i+1][j].p4[0], matrix[i+1][j].p4[1], matrix[i+1][j].p4[2]);
+      vertex(matrix[i+1][j+1].p1[0], matrix[i+1][j+1].p1[1], matrix[i+1][j+1].p1[2]);
+      vertex(matrix[i][j+1].p2[0], matrix[i][j+1].p2[1], matrix[i][j+1].p2[2]);
+      endShape(CLOSE);
+      beginShape();
+      vertex(matrix[i][j].p4[0], matrix[i][j].p4[1], matrix[i][j].p4[2]);
+      vertex(matrix[i][j].p3[0], matrix[i][j].p3[1], matrix[i][j].p3[2]);
+      vertex(matrix[i][j+1].p2[0], matrix[i][j+1].p2[1], matrix[i][j+1].p2[2]);
+      vertex(matrix[i][j+1].p1[0], matrix[i][j+1].p1[1], matrix[i][j+1].p1[2]);
+      endShape(CLOSE);
+    }
+  }
+}
+
+void readTerrain() {
+  for (int i = 0; i < xDim; i++) {
+    for(int j = 0; j < yDim; j++) {
+      switch(matrix[i][j].state) {
+        //city
+        case 0:
+          ca.createCenter(i, j);
+          break;
+        //river
+        case 5:
+          ca.createRiver(i, j);
+          break;
+        //road
+        case 6:
+          ca.createRoad(i, j);
+          break;
+      }
+    }
+  }
+}
+
+void keyPressed() {
+  println(key);
+  if (key == 'a') {
+    ca.incrementHeight();
+  } else if (key == 's') {
+    ca.decrementHeight();
+  }
+  if (key == 'z') {
+    ca.incrementDiameter();
+  } else if (key == 'x') {
+    ca.decrementDiameter();
+  }
+  
+}

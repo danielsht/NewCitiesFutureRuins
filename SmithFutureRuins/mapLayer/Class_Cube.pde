@@ -79,4 +79,3 @@ class Cube {
     this.p4[2] = (this.y*sizer + (.25 * sizer))-150;
   }
 }
-
