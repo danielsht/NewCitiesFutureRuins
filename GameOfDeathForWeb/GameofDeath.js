@@ -1,5 +1,5 @@
 //Touch to start fire
-var grid;
+var grid = new(Grid);
 
 function setup() {
   createCanvas(1400, 1000);
@@ -77,13 +77,16 @@ function Grid() {
 	this.grid = [];
     this.START = this.allOFFON = false;
     this.chance = 5;
-    this.chances[0] = 10;
-    this.chances[1] = 10;
-    this.chances[2] = 10;
-    this.chances[3] = 10;
-    for(var y = 0, n = 0; y < height; y+=5) {
-      for(var x = 0; x < width; x+=5) {
-        grid.push(new Cell(createVector(x, y), n));
+    this.chances = [];
+    this.chances.push(10);
+    this.chances.push(10);
+    this.chances.push(10);
+    this.chances.push(10);
+    for(var y = 0, n = 0; y < 1000; y+=5) {
+      for(var x = 0; x < 1400; x+=5) {
+      	var newV = createVector(x, y);
+      	var newCell = new Cell(newV, n)
+        grid.push(newCell);
         n++;
       }
     }
