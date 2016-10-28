@@ -2,6 +2,7 @@ class CityCenter {
   PVector location;
   float _spread;
   float _height;
+  float modifier = 0.2;
   CityCenter() {
   }
   
@@ -9,6 +10,7 @@ class CityCenter {
     location = new PVector(200 + (x*sizer), 600, -150+(y*sizer));
     _spread = 1;
     _height = 1;
+    
   }
   void render() {
     pushMatrix();
@@ -18,21 +20,21 @@ class CityCenter {
   }
   
   void incrementSpread() {
-    _spread+= 0.1;
+    _spread+= modifier;
   }
   
   void decrementSpread() {
     if(_spread > 2)
-      _spread-= 0.1;
+      _spread-= modifier;
   }
   
   void incrementHeight() {
-    _height+= 0.1;
+    _height+= modifier;
   }
   
   void decrementHeight() {
     if (_height > 1)
-      _height -= 0.1; 
+      _height -= modifier; 
   }
   
   void setToDefaultHeight() {
