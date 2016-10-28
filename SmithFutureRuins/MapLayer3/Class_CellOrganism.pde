@@ -98,7 +98,8 @@ class CellOrganism {
             }
           }
           cells[i][j][k].alpha = map(livingNeighbors, 0, 8, 5, 250);
-          float mod = startingLevel - ((k*verticalModifier)+abs((closestCenterDistance(cells[i][j][k])-k)*horizontalModifier));
+          CityCenter closestCenter = closestCenter(cells[i][j][k]);
+          float mod = startingLevel - ((k*(verticalModifier)/closestCenter._height)+abs((closestCenterDistance(cells[i][j][k])-k)*(horizontalModifier)/closestCenter._spread));
           if (abs(closestRoadDistance(cells[i][j][k])) <= 2) {
             mod += 3;
           }

@@ -43,8 +43,8 @@ void draw() {
 
 void loadTwoDim() {
   int counter = 0;
-  for (int i = 0; i < 40; i ++) {
-    for (int j = 0; j < 60; j ++) {
+  for (int i = 0; i < yDim; i ++) {
+    for (int j = 0; j < xDim; j ++) {
       pixArray[j][i] = int((red(p.pixels[counter])+green(p.pixels[counter])+blue(p.pixels[counter]))/3);//p.pixels[counter];
       counter ++;
     }

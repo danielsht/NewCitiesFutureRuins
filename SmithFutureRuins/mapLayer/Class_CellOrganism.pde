@@ -63,11 +63,16 @@ class CellOrganism {
       cells[i][j][k] = new Cell(sizer, new PVector(200 + (i*sizer), 600-(sizer/3), -150+(j*sizer)));  
     }
     cells[i][j][k].life = true;
+    cells[i][j][k].status = 3;
   }
   
   void killCell(int i, int j, int k) {
     if (cells[i][j][k] != null) {
-      cells[i][j][k].life = false;
+      if (cells[i][j][k].status <= 0) {
+        cells[i][j][k].life = false;
+      } else {
+        cells[i][j][k].decreaseStatus();
+      }
     }
   }
   
@@ -101,8 +106,14 @@ class CellOrganism {
           }
           
           if ((livingNeighbors >= 3 && livingNeighbors <= mod)) {
+            //if (livingNeighbors >= 3) {
+            //  cells[i][j][k].status += 1;
+            //}
             nextState[i][j][k] = true;
           } else {
+            //if (livingNeighbors > 2 && cells[i][j][k].status < 0) {
+            //  cells[i][j][k].status = 0;
+            //}
             nextState[i][j][k] = false;
           }
         }

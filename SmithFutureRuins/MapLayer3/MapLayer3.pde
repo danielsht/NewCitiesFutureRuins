@@ -139,5 +139,32 @@ void keyPressed() {
   } else if (key == 'x') {
     ca.decrementDiameter();
   }
+  if(key == '1') {
+    if (ca.centers.get(0) != null)
+      ca.centers.get(0).incrementSpread();
+  } else if (key == '2') {
+    if (ca.centers.get(1) != null)
+      ca.centers.get(1).incrementSpread();
+  } else if (key == '3') {
+    if (ca.centers.get(2) != null)
+      ca.centers.get(2).incrementSpread();
+  }
+  
+  if(key == 'q') {
+    if (ca.centers.get(0) != null)
+      ca.centers.get(0).decrementSpread();
+  } else if (key == 'w') {
+    if (ca.centers.get(1) != null)
+      ca.centers.get(1).decrementSpread();
+  } else if (key == 'e') {
+    if (ca.centers.get(2) != null)
+      ca.centers.get(2).decrementSpread();
+  }
+  
+  if(key == ENTER) {
+    for (int i = 0; i < ca.centers.size(); i++) {
+      ca.centers.get(i).setToDefaultSpread();
+    }
+  }
   
 }
