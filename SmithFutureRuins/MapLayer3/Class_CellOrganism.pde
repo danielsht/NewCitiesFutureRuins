@@ -1,6 +1,6 @@
 class CellOrganism {
   Cell cells[][][];
-  int maxHeight = 20;
+  int maxHeight = 1;
   int zDim = 20;
   float horizontalModifier = 2.5;
   float verticalModifier = 1.5;
@@ -107,8 +107,14 @@ class CellOrganism {
             mod += 3;
           }
           
-          if (abs(closestCenterDistance(cells[i][j][k])) <= 2 && cells[i][j][k].status < 2) {
-            cells[i][j][k].status += 2;
+          if (abs(closestCenterDistance(cells[i][j][k])) <= 2) {
+            if (cells[i][j][k].status < 2)
+              cells[i][j][k].status += 2;
+            mod += closestCenter._height;
+          }
+          
+          if (aboveRiver(cells[i][j][k])) {
+            mod = 0;
           }
           
           if ((livingNeighbors >= 4 && livingNeighbors <= mod)) {            nextState[i][j][k] = true;
@@ -241,5 +247,16 @@ class CellOrganism {
     if (horizontalModifier < maxHorizontalMod) {
       horizontalModifier += 0.1;
     }
+  }
+  
+  boolean aboveRiver(Cell cell) {
+    for (int i = 0; i < rivers.size(); i++) {
+      float deltaX = abs(rivers.get(i).location.x - cell.location.x);
+      float deltaY = abs(rivers.get(i).location.y - cell.location.y);
+      if (deltaX < 0.5 && deltaY < 0.5) {
+        return true;
+      }
+    }
+    return false;
   }
 }
