@@ -114,10 +114,8 @@ class CellOrganism {
           }
           
           if (aboveRiver(cells[i][j][k])) {
-            mod = 0;
-          }
-          
-          if ((livingNeighbors >= 4 && livingNeighbors <= mod)) {            nextState[i][j][k] = true;
+            nextState[i][j][k] = false;
+          } else if ((livingNeighbors >= 4 && livingNeighbors <= mod)) {            nextState[i][j][k] = true;
           } else {
             if (livingNeighbors >= 4 && livingNeighbors < 2+ mod && cells[i][j][k].status > 2) {
              cells[i][j][k].status = 2.5;
@@ -252,8 +250,8 @@ class CellOrganism {
   boolean aboveRiver(Cell cell) {
     for (int i = 0; i < rivers.size(); i++) {
       float deltaX = abs(rivers.get(i).location.x - cell.location.x);
-      float deltaY = abs(rivers.get(i).location.y - cell.location.y);
-      if (deltaX < 0.5 && deltaY < 0.5) {
+      float deltaY = abs(rivers.get(i).location.z - cell.location.z);
+      if (deltaX < 1.1 && deltaY < 1.1) {
         return true;
       }
     }
