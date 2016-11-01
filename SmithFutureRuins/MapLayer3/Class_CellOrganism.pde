@@ -103,7 +103,7 @@ class CellOrganism {
           if (abs(closestRoadDistance(cells[i][j][k])) <= 2) {
             mod += 3;
           }
-          if (abs(closestRiverDistance(cells[i][j][k])) <= 2) {
+          if (abs(closestRiverDistance(cells[i][j][k])) <= 3) {
             mod += 3;
           }
           

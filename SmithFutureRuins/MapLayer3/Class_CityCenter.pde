@@ -24,7 +24,7 @@ class CityCenter {
   }
   
   void decrementSpread() {
-    if(_spread > 2)
+    if(_spread > 1)
       _spread-= modifier;
   }
   
@@ -42,6 +42,6 @@ class CityCenter {
   }
   
   void setToDefaultSpread() {
-    _spread = 2;
+    _spread = 1;
   }
 }
