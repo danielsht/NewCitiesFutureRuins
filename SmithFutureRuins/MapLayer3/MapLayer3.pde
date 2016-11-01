@@ -40,6 +40,9 @@ void draw() {
   String s = "1: city1.spread++, 2: city2.spread++, 3: city2.spread++, ENTER: default";
   fill(250);
   text(s, 10, 10, 120, 200);
+  String s1 = "SPREAD\ncity 1: " + ca.centers.get(0)._spread + "\ncity 2: " + ca.centers.get(1)._spread + "\ncity 3: " + ca.centers.get(2)._spread;
+  fill(250);
+  text(s1, 10, 80, 120, 200);
   //delay(500);
   //camera(200, 0, 700.0, // eyeX, eyeY, eyeZ
   //       width/2+100, height-100, 100, // centerX, centerY, centerZ
