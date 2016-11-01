@@ -19,7 +19,8 @@ class Cube {
 
   void display() {
     fill(c);
-    stroke(30, 30, 30, 175);
+    noStroke();
+ //   stroke(30, 30, 30, 175);
 //    noStroke();  
     beginShape();
     vertex(p1[0], p1[1], p1[2]);
@@ -30,35 +31,34 @@ class Cube {
   }
 
   void calculate() {
-    color colorA = color(140, 60, 60, 175);
-    color colorB = color(140, 120, 120, 175);
+    float alphaValue = 180;
     switch(this.state) {
     case 0: // city
-      this.c = color(255, 255, 255, 175);
+      this.c = color(255, 255, 255, alphaValue);
       this.elev = 3;
       break;
     case 1: // lowest terrain
-      this.c = lerpColor(colorA, colorB, .2);
+      this.c = color(112, 53, 46, alphaValue);
       this.elev = 5;
       break;
     case 2: // medium-low terrain
-      this.c = lerpColor(colorA, colorB, .4);
+      this.c = color(211, 82, 56, alphaValue);
       this.elev = 4;
       break;
     case 3: // medium-hi terrain
-      this.c = lerpColor(colorA, colorB, .6);
+      this.c = color(248, 152, 84, alphaValue);
       this.elev = 2;
       break;
     case 4: // hi terrain
-      this.c = lerpColor(colorA, colorB, .8);
+      this.c = color(109, 97, 54, alphaValue);
       this.elev = 1;
       break;
     case 5: // river
-      this.c = color(100, 200, 200, 175);
+      this.c = color(100, 200, 200, alphaValue);
       this.elev = 0;
       break;
     case 6: // road
-      this.c = color(125, 125, 125, 175);
+      this.c = color(125, 125, 125, alphaValue);
       this.elev = 3;
       break;
     }

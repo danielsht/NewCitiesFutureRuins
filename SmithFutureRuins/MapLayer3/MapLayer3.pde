@@ -3,15 +3,15 @@
 //final float radius = 0;
 
 PImage p;
-String fileName = "Underlayment.png";  // a 2500 x 2500 pixel image;
+String fileName = "Map600x400.png";  // a 600 x 400 pixel image;
 
-int xDim = 60;
-int yDim = 40;
+int xDim = 600;
+int yDim = 400;
 int zDim = 20;
 color pixArray[][] = new color[xDim][yDim];
 Cube matrix[][] = new Cube[xDim][yDim];
 CellOrganism ca = new CellOrganism(xDim, yDim);
-int sizer = 15;
+int sizer = 5;
 
 void setup() {
   //frameRate(1);
@@ -31,11 +31,11 @@ void draw() {
   
   background(45);
   pushMatrix();
-  translate(-40,-150,100);
+  translate(-width,0 ,-1000);
   rotateX(-.4);
   renderMatrix();
-  ca.update();
-  ca.renderCells();
+//  ca.update();
+//  ca.renderCells();
   popMatrix();
   String s = "1: city1.spread++, 2: city2.spread++, 3: city2.spread++, ENTER: default";
   fill(250);
@@ -60,25 +60,25 @@ void loadTwoDim() {
 void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-gray4 5-river 6-road
   for (int i = 0; i < yDim; i ++) {
     for (int j = 0; j < xDim; j ++) {
-      if (pixArray[j][i] == 255) {
+      if ((pixArray[j][i] <= 255) && (pixArray[j][i] > 225)) {
         matrix[j][i] = new Cube(j, i, 0);
       }  
-      if (pixArray[j][i] == 200) {
+      if ((pixArray[j][i] <= 225) && (pixArray[j][i] > 190))  {
         matrix[j][i] = new Cube(j, i, 1);
       }  
-      if (pixArray[j][i] == 175) {
+      if ((pixArray[j][i] <= 190) && (pixArray[j][i] > 163))  {
         matrix[j][i] = new Cube(j, i, 2);
       }
-      if (pixArray[j][i] == 150) {
+      if ((pixArray[j][i] <= 163) && (pixArray[j][i] > 133))  {
         matrix[j][i] = new Cube(j, i, 3);
       }
-      if (pixArray[j][i] == 125) {
+      if ((pixArray[j][i] <= 133) && (pixArray[j][i] > 113))  {
         matrix[j][i] = new Cube(j, i, 4);
       }
-      if (pixArray[j][i] == 100) {
+      if ((pixArray[j][i] <= 113) && (pixArray[j][i] > 55))  {
         matrix[j][i] = new Cube(j, i, 5);
       }
-      if (pixArray[j][i] == 0) {
+      if (pixArray[j][i] <= 55) {
         matrix[j][i] = new Cube(j, i, 6);
       }
     }
