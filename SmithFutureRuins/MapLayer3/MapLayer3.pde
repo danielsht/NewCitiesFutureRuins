@@ -201,15 +201,24 @@ void buttonPress(String dataIn) {
     int timeCode = json.getInt("time"); //make sure it is not a repeated add/click
     if(timeCode != previousTime){
       String city = json.getString("user");
+      println(city);
       switch(city) {
         case "city1":
-          ca.centers.get(0).incrementSpread(); //if city 1 pressed add to city
+          incrementCitySpread(0); //if city 1 pressed add to city
+          break;
         case "city2":
           ca.centers.get(1).incrementSpread(); //if city 2 pressed add to city
+          break;
         case "city3": 
           ca.centers.get(2).incrementSpread(); //if city 3 pressed add to city
+          break;
       }
       previousTime = timeCode; //reset previous time code
     }
   }
+}
+
+void incrementCitySpread(int i) {
+  if (ca.centers.get(i) != null)
+      ca.centers.get(i).incrementSpread();
 }
