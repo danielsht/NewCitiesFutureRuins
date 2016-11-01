@@ -21,7 +21,7 @@ app.get('/CAsequence', function (req, res) {
 var io = require('socket.io')(server);
 
 io.sockets.on('connection', function(socket) {
-	console.log("New Client: " + socket.id);
+	//console.log("New Client: " + socket.id);
 
 	socket.on('user', function(UserData) {
 		data = UserData;

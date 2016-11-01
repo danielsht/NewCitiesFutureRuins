@@ -1,3 +1,6 @@
+//needed for restful api calls
+import http.requests.*;
+
 //import peasy.*;
 //PeasyCam cam;
 //final float radius = 0;
@@ -13,6 +16,11 @@ Cube matrix[][] = new Cube[xDim][yDim];
 CellOrganism ca = new CellOrganism(xDim, yDim);
 int sizer = 5;
 
+//http values for restful API calls
+GetRequest get; 
+String dataIn;
+int previousTime;
+
 void setup() {
   //frameRate(1);
   size(1200, 800, P3D);
@@ -25,6 +33,9 @@ void setup() {
   //ca.createCenter(20,20);
   //ca.createCenter(24,24);
   //ca.createCenter(20,24);
+  
+  //Change later to server URL 
+  get = new GetRequest("http://localhost:5000/CAsequence");
 }
 
 void draw() {
@@ -40,11 +51,19 @@ void draw() {
   String s = "1: city1.spread++, 2: city2.spread++, 3: city2.spread++, ENTER: default";
   fill(250);
   text(s, 10, 10, 120, 200);
+  String s1 = "SPREAD\ncity 1: " + ca.centers.get(0)._spread + "\ncity 2: " + ca.centers.get(1)._spread + "\ncity 3: " + ca.centers.get(2)._spread;
+  fill(250);
+  text(s1, 10, 80, 120, 200);
   //delay(500);
   //camera(200, 0, 700.0, // eyeX, eyeY, eyeZ
   //       width/2+100, height-100, 100, // centerX, centerY, centerZ
   //       0.0, 0.5, 0.0);
   //camera(0, 100, 0);
+  
+  get.send();
+  dataIn = get.getContent();
+  buttonPress(dataIn);
+  
 }
 
 void loadTwoDim() {
@@ -173,4 +192,33 @@ void keyPressed() {
     }
   }
   
+}
+
+void buttonPress(String dataIn) {
+  //not an empty get 
+  if ( !dataIn.equals("") ) {
+    JSONObject json = JSONObject.parse(dataIn); //make into a JSON Object for easy parsing
+    int timeCode = json.getInt("time"); //make sure it is not a repeated add/click
+    if(timeCode != previousTime){
+      String city = json.getString("user");
+      println(city);
+      switch(city) {
+        case "city1":
+          incrementCitySpread(0); //if city 1 pressed add to city
+          break;
+        case "city2":
+          ca.centers.get(1).incrementSpread(); //if city 2 pressed add to city
+          break;
+        case "city3": 
+          ca.centers.get(2).incrementSpread(); //if city 3 pressed add to city
+          break;
+      }
+      previousTime = timeCode; //reset previous time code
+    }
+  }
+}
+
+void incrementCitySpread(int i) {
+  if (ca.centers.get(i) != null)
+      ca.centers.get(i).incrementSpread();
 }

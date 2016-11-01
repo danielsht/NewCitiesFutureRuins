@@ -6,11 +6,15 @@
 </head>
 
 <body>
-	<button type="button" onclick="socketScript();"> Add Population </button>
+	<button type="button" id="city1" onclick="socketScript(this);"> Add Population To City 1 </button>
+	<button type="button" id="city2" onclick="socketScript(this);"> Add Population To City 2 </button>
+	<button type="button" id="city3" onclick="socketScript(this);"> Add Population To City 3 </button>
 	<script type="text/javascript">
-		function socketScript() {
+		function socketScript(button) {
 			var socket = io('http://localhost:5000');
-			socket.emit('user', {user: "Add New User!"});
+			socket.emit('user', {user: button.id,
+				time: Date.now()
+			});
 		}
 	</script>
 </body>
