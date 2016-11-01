@@ -4,14 +4,14 @@
 
 PImage p;
 String fileName = "Untitled-1.png";  // a 2500 x 2500 pixel image;
-color pixArray[][] = new color[600][400];
 int xDim = 600;
 int yDim = 400;
+color pixArray[][] = new color[xDim][yDim];
 Cube matrix[][] = new Cube[xDim][yDim];
-int sizer = 10;
+int sizer = 3;
 
 void setup() {
-  size(2000, 1000, P3D);
+  size(1000, 750, P3D);
   p = loadImage(fileName);
   p.loadPixels();
   loadTwoDim();
@@ -58,8 +58,8 @@ void draw() {
 
 void loadTwoDim() {
   int counter = 0;
-  for (int i = 0; i < 400; i ++) {
-    for (int j = 0; j < 600; j ++) {
+  for (int i = 0; i < yDim; i ++) {
+    for (int j = 0; j < xDim; j ++) {
       pixArray[j][i] = int((red(p.pixels[counter])+green(p.pixels[counter])+blue(p.pixels[counter]))/3);//p.pixels[counter];
       counter ++;
     }
