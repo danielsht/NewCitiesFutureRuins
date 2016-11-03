@@ -20,7 +20,7 @@ class Cube {
   void display() {
     fill(c);
     noStroke();
- //   stroke(30, 30, 30, 175);
+    stroke(30, 30, 30, 175);
 //    noStroke();  
     beginShape();
     vertex(p1[0], p1[1], p1[2]);
