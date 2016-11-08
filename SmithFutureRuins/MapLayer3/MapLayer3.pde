@@ -201,7 +201,6 @@ void buttonPress(String dataIn) {
     int timeCode = json.getInt("time"); //make sure it is not a repeated add/click
     if(timeCode != previousTime){
       String city = json.getString("user");
-      println(city);
       switch(city) {
         case "city1":
           incrementCitySpread(0); //if city 1 pressed add to city
