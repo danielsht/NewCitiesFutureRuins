@@ -99,10 +99,6 @@ class CellOrganism {
           }
           cells[i][j][k].alpha = map(livingNeighbors, 0, 8, 5, 250);
           CityCenter closestCenter = closestCenter(cells[i][j][k]);
-          if (closestCenter == null) {
-            nextState[i][j][k] = false;
-            break;
-        }
           float mod = startingLevel - ((k*(verticalModifier)/closestCenter._height)+abs((closestCenterDistance(cells[i][j][k])-k)*(horizontalModifier)/closestCenter._spread));
           if (abs(closestRoadDistance(cells[i][j][k])) <= 2) {
             mod += 3;
@@ -112,15 +108,14 @@ class CellOrganism {
           }
           
           if (abs(closestCenterDistance(cells[i][j][k])) <= 2) {
-            if (cells[i][j][k].status < 2 && cells[i][j][k].status > 0)
+            if (cells[i][j][k].status < 2)
               cells[i][j][k].status += 2;
             mod += closestCenter._height;
           }
           
           if (aboveRiver(cells[i][j][k])) {
             nextState[i][j][k] = false;
-          } else if ((livingNeighbors >= 4 && livingNeighbors <= mod)) {            
-            nextState[i][j][k] = true;
+          } else if ((livingNeighbors >= 4 && livingNeighbors <= mod)) {            nextState[i][j][k] = true;
           } else {
             if (livingNeighbors >= 4 && livingNeighbors < 2+ mod && cells[i][j][k].status > 2) {
              cells[i][j][k].status = 2.5;
@@ -187,6 +182,7 @@ class CellOrganism {
   
   float closestRoadDistance(Cell cell) {
     float minDistance = 999999999;
+    int minIndex = 0;
     if (roads.size() <= 0) {
       return 0;
     }
@@ -194,6 +190,7 @@ class CellOrganism {
       float distance = cell.location.dist(roads.get(i).location)/sizer;
       if (minDistance > distance) {
         minDistance = distance;
+        minIndex = i;
       }
     }
     return minDistance;

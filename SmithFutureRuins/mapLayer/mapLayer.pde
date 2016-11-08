@@ -93,4 +93,3 @@ void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-gray4 5-river 6-road
     }
   }
 }
-
