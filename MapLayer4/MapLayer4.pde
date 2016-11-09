@@ -6,7 +6,10 @@
 //final float radius = 0;
 
 PImage p;
+PImage b;
+
 String fileName = "Map150x100.png";  // a 600 x 400 pixel image;
+String bgFileName = "BG.jpg";
 
 int xDim = 150;
 int yDim = 100;
@@ -24,8 +27,13 @@ int previousTime;
 void setup() {
   //frameRate(1);
   size(1200, 800, P3D);
+
+  b = loadImage(bgFileName);
+  background(b);
+ 
   p = loadImage(fileName);
   p.loadPixels();
+  
   loadTwoDim();
   initMatrix();
   ca.initGrid();
@@ -40,8 +48,8 @@ void setup() {
 
 void draw() {
   
-//  background(85);
-  background(160, 200, 200, 200);
+  background(b);
+//  background(160, 200, 200, 200);
   pushMatrix();
   translate(-width,0 ,-1000);
   rotateX(-.4);
@@ -50,14 +58,17 @@ void draw() {
   ca.renderCells();
   popMatrix();
   
+  String url = " http://10.0.1.100 ";
   String city1Message = "Cement Station\n\nPopulation:\n" + int(ca.centers.get(0)._spread * 10) + "k";
   String city2Message = "Lickskillet\n\nPopulation:\n" + int(ca.centers.get(1)._spread * 10) + "k";
   String city3Message = "Blackgold Bayou\n\nPopulation:\n" + int(ca.centers.get(2)._spread * 10) + "k";
-  fill(50);
-  stroke(75);
+  String buildMessage = "Visit "+url+" on your mobile device to add resrouces to a city.";
+  fill(250);
+  stroke(195);
   text(city1Message, 110, 160, 130, 130);
   text(city2Message, 940, 180, 130, 130);
   text(city3Message, 325, 230, 130, 130);
+  text(buildMessage, 400, 50, 500, 50);
   noFill();
   rect(100, 150, 150, 150, 7);
   rect(930, 170, 150, 150, 7);
@@ -121,6 +132,8 @@ void initMatrix() { //0-city 1-gray1 2-gray2 3-gray3 4-gray4 5-river 6-road
     }
   }
 }
+
+
 
 void renderMatrix() {
   for (int i = 0; i < xDim-1; i ++) {
