@@ -38,29 +38,42 @@ class Cell {
       //    fill(0, 0, 255, alpha - ((status%1)*100));
       //    break;
       //}
+      
+      int alphaVal = 75;
+      color c1 = color(100, 150, 200, alphaVal);
+      color c2 = color(25, 65, 100, alphaVal);
+      
       if(status == 0) {
 //        fill(0, 0, 0, 0);
         fill(25, 25, 25, 0);
         stroke(255);
       } else if(status == 2.5) {
-        fill(100, 100, 0, 50+abs((status-1)*100));
-        noStroke();
+  fill(lerpColor(c1, c2, 1));
+//        fill(100, 100, 0, 50+abs((status-1)*100));
+  stroke(55);
+//        noStroke();
         box(size*sizeModifier);
       } else if(status > 0){
-        fill(150, 255-(150-((status-1)*100)), 0, 50+((status-1)*100));
-        noStroke();
+  fill(lerpColor(c1, c2, .66));
+//        fill(150, 255-(150-((status-1)*100)), 0, 50+((status-1)*100));
+  stroke(55);
+//        noStroke();
         box(size*sizeModifier);
       } 
       else {
-        fill(255, 200, 0, (abs(status)*100));
-        stroke(255, 0, 0, (abs(status)*100));
+  fill(lerpColor(c1, c2, .33));
+//        fill(255, 200, 0, (abs(status)*100));
+  stroke(lerpColor(c1, c2, 0));
+//        stroke(255, 0, 0, (abs(status)*100));
         box(size*sizeModifier);
       }
-      
+  stroke(255); point(0,0,0);
+
     } else {
       fill(0, 0, 0, 0);
       stroke(255);
     }
+       
   popMatrix();
   }
   

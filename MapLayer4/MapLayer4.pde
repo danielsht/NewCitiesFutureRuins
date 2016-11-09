@@ -40,7 +40,8 @@ void setup() {
 
 void draw() {
   
-  background(45);
+//  background(85);
+  background(160, 200, 200, 200);
   pushMatrix();
   translate(-width,0 ,-1000);
   rotateX(-.4);
@@ -48,12 +49,29 @@ void draw() {
   ca.update();
   ca.renderCells();
   popMatrix();
-  String s = "1: city1.spread++, 2: city2.spread++, 3: city2.spread++, ENTER: default";
-  fill(250);
-  text(s, 10, 10, 120, 200);
-  String s1 = "SPREAD\ncity 1: " + ca.centers.get(0)._spread + "\ncity 2: " + ca.centers.get(1)._spread + "\ncity 3: " + ca.centers.get(2)._spread;
-  fill(250);
-  text(s1, 10, 80, 120, 200);
+  
+  String city1Message = "Cement Station\n\nPopulation:\n" + int(ca.centers.get(0)._spread * 10) + "k";
+  String city2Message = "Lickskillet\n\nPopulation:\n" + int(ca.centers.get(1)._spread * 10) + "k";
+  String city3Message = "Blackgold Bayou\n\nPopulation:\n" + int(ca.centers.get(2)._spread * 10) + "k";
+  fill(50);
+  stroke(75);
+  text(city1Message, 110, 160, 130, 130);
+  text(city2Message, 940, 180, 130, 130);
+  text(city3Message, 325, 230, 130, 130);
+  noFill();
+  rect(100, 150, 150, 150, 7);
+  rect(930, 170, 150, 150, 7);
+  rect(315, 220, 150, 150, 7);
+  line(140, 300, 115, 440);
+  line(970, 320, 935, 510);
+  line(355, 370, 120, 620); 
+  
+  //String s = "1: city1.spread++, 2: city2.spread++, 3: city2.spread++, ENTER: default";
+  //fill(250);
+  //text(s, 10, 10, 120, 200);
+  //String s1 = "SPREAD\ncity 1: " + ca.centers.get(0)._spread + "\ncity 2: " + ca.centers.get(1)._spread + "\ncity 3: " + ca.centers.get(2)._spread;
+  //fill(250);
+  //text(s1, 10, 80, 120, 200);
   //delay(500);
   //camera(200, 0, 700.0, // eyeX, eyeY, eyeZ
   //       width/2+100, height-100, 100, // centerX, centerY, centerZ

@@ -30,27 +30,27 @@ class Cube {
   }
 
   void calculate() {
-    float alphaValue = 200;
+    float alphaValue = 255;
     switch(this.state) {
     case 0: // city
       this.c = color(255, 255, 255, alphaValue);
-      this.elev = 3;
+      this.elev = 6;//3;
       break;
     case 1: // highest terrain
       this.c = color(171, 100, 45, alphaValue);
-      this.elev = 5;
+      this.elev = 10;//5;
       break;
     case 2: // medium-high terrain
       this.c = color(212, 175, 122, alphaValue);
-      this.elev = 4;
+      this.elev = 8;//4;
       break;
     case 3: // medium-low terrain
       this.c = color(208, 171, 84, alphaValue);
-      this.elev = 2;
+      this.elev = 4;//2;
       break;
     case 4: // lowest terrain
       this.c = color(220, 194, 133, alphaValue);
-      this.elev = 1;
+      this.elev = 2;//1;
       break;
     case 5: // river
       this.c = color(100, 200, 200, alphaValue);
@@ -58,7 +58,7 @@ class Cube {
       break;
     case 6: // road
       this.c = color(125, 125, 125, alphaValue);
-      this.elev = 3;
+      this.elev = 6;//3;
       break;
     }
     this.p1[0] = (this.x*sizer - (.25 * sizer))+200;
