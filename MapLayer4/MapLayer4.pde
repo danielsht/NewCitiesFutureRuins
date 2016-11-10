@@ -7,9 +7,11 @@
 
 PImage p;
 PImage b;
+PImage t;
 
 String fileName = "Map150x100.png";  // a 600 x 400 pixel image;
 String bgFileName = "BG.jpg";
+String textureFileName = "textureMap.png";
 
 int xDim = 150;
 int yDim = 100;
@@ -31,6 +33,8 @@ void setup() {
   b = loadImage(bgFileName);
   background(b);
  
+ t = loadImage(textureFileName);
+ 
   p = loadImage(fileName);
   p.loadPixels();
   
@@ -51,9 +55,20 @@ void draw() {
   background(b);
 //  background(160, 200, 200, 200);
   pushMatrix();
-  translate(-width,0 ,-1000);
+  translate(-width, 0 ,-1000);
   rotateX(-.4);
-  renderMatrix();
+//  renderMatrix();
+  
+  textureMode(NORMAL);
+tint(255, 175);
+beginShape();
+texture(t);
+vertex(matrix[0][0].p1[0], matrix[0][0].p1[1], matrix[0][0].p1[2], 0, 0);
+vertex(matrix[xDim-1][0].p1[0], matrix[xDim-1][0].p1[1], matrix[xDim-1][0].p1[2], 1, 0);
+vertex(matrix[xDim-1][yDim-1].p1[0], matrix[xDim-1][yDim-1].p1[1], matrix[xDim-1][yDim-1].p1[2], 1, 1);
+vertex(matrix[0][yDim-1].p1[0], matrix[0][yDim-1].p1[1], matrix[0][yDim-1].p1[2], 0, 1);
+endShape();
+  
   ca.update();
   ca.renderCells();
   popMatrix();
