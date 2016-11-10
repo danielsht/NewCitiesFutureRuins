@@ -2,17 +2,76 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.4/p5.min.js"></script>
   <style> body {padding: 0; margin: 0;} </style>
 </head>
 
 <body>
-	<button type="button" id="city1" onclick="socketScript(this);"> Add Population To City 1 </button>
+	<!--<button type="button" id="city1" onclick="socketScript(this);"> Add Population To City 1 </button>
 	<button type="button" id="city2" onclick="socketScript(this);"> Add Population To City 2 </button>
-	<button type="button" id="city3" onclick="socketScript(this);"> Add Population To City 3 </button>
+	<button type="button" id="city3" onclick="socketScript(this);"> Add Population To City 3 </button> -->
 	<script type="text/javascript">
+		var halfbox;
+		var fillVal;
+		function setup(){
+			createCanvas(windowWidth, windowHeight);
+			background(0);
+			halfbox = (windowHeight/3)/2;
+			fillVal = 255;
+
+		}
+
+		function draw(){
+			textSize(32);
+			textAlign(CENTER);
+			stroke(128, 0, 0);
+			strokeWeight(4);
+			if (touchIsDown && mouseY >= 0 && mouseY <= windowHeight/3){
+				fill(100);
+			} else {
+				fill(255);
+			}
+			rect(50, 0, windowWidth - 100, windowHeight/3);
+			noStroke();
+			fill(0);
+			text("Add Population to City 1!", windowWidth/2, (windowHeight/3)/2);
+			stroke(128, 0, 0);
+			strokeWeight(4);
+			if (touchIsDown && mouseY >= windowHeight/3 && mouseY <= windowHeight - windowHeight/3){
+				fill(100);
+			} else {
+				fill(255);
+			}
+			rect(50, windowHeight/3, windowWidth - 100, windowHeight/3);
+			noStroke();
+			fill(0);
+			text("Add Population to City 2!", windowWidth/2, (windowHeight/3) + halfbox);
+			stroke(128, 0, 0);
+			strokeWeight(4);
+			if (touchIsDown && mouseY >= windowHeight - windowHeight/3 && mouseY <= windowHeight){
+				fill(100);
+			} else {
+				fill(255);
+			}
+			rect(50, windowHeight - windowHeight/3, windowWidth - 100, windowHeight/3);
+			noStroke();
+			fill(0);
+			text("Add Population to City 3!", windowWidth/2, windowHeight - halfbox);
+		}
+
+		function touchEnded(){
+			if( mouseY >= 0 && mouseY <= windowHeight/3 ) {
+				socketScript("city1");
+			} else if ( mouseY >= windowHeight/3 && mouseY <= windowHeight - windowHeight/3){
+				socketScript("city2");
+			} else if ( mouseY >= windowHeight - windowHeight/3 && mouseY <= windowHeight){
+				socketScript("city3");
+			}
+		}
+
 		function socketScript(button) {
-			var socket = io('http://localhost:5000');
-			socket.emit('user', {user: button.id,
+			var socket = io('http://10.8.101.114:5000');
+			socket.emit('user', {user: button,
 				time: Date.now()
 			});
 		}
