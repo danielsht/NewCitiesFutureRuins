@@ -12,10 +12,12 @@
 	<button type="button" id="city3" onclick="socketScript(this);"> Add Population To City 3 </button> -->
 	<script type="text/javascript">
 		var halfbox;
+		var fillVal;
 		function setup(){
 			createCanvas(windowWidth, windowHeight);
 			background(0);
-			halfbox = (windowHeight/3)/2
+			halfbox = (windowHeight/3)/2;
+			fillVal = 255;
 
 		}
 
@@ -24,30 +26,37 @@
 			textAlign(CENTER);
 			stroke(128, 0, 0);
 			strokeWeight(4);
-			//fill(0);
+			if (touchIsDown && mouseY >= 0 && mouseY <= windowHeight/3){
+				fill(100);
+			} else {
+				fill(255);
+			}
 			rect(50, 0, windowWidth - 100, windowHeight/3);
 			noStroke();
+			fill(0);
 			text("Add Population to City 1!", windowWidth/2, (windowHeight/3)/2);
 			stroke(128, 0, 0);
 			strokeWeight(4);
+			if (touchIsDown && mouseY >= windowHeight/3 && mouseY <= windowHeight - windowHeight/3){
+				fill(100);
+			} else {
+				fill(255);
+			}
 			rect(50, windowHeight/3, windowWidth - 100, windowHeight/3);
 			noStroke();
+			fill(0);
 			text("Add Population to City 2!", windowWidth/2, (windowHeight/3) + halfbox);
 			stroke(128, 0, 0);
 			strokeWeight(4);
+			if (touchIsDown && mouseY >= windowHeight - windowHeight/3 && mouseY <= windowHeight){
+				fill(100);
+			} else {
+				fill(255);
+			}
 			rect(50, windowHeight - windowHeight/3, windowWidth - 100, windowHeight/3);
 			noStroke();
+			fill(0);
 			text("Add Population to City 3!", windowWidth/2, windowHeight - halfbox);
-		}
-
-		function mouseClicked(){
-			if( mouseY >= 0 && mouseY <= windowHeight/3 ) {
-				socketScript("city1");
-			} else if ( mouseY >= windowHeight/3 && mouseY <= windowHeight - windowHeight/3){
-				socketScript("city2");
-			} else if ( mouseY >= windowHeight - windowHeight/3 && mouseY <= windowHeight){
-				socketScript("city3");
-			}
 		}
 
 		function touchEnded(){
@@ -61,7 +70,7 @@
 		}
 
 		function socketScript(button) {
-			var socket = io('http://10.8.118.12:5000');
+			var socket = io('http://10.8.101.114:5000');
 			socket.emit('user', {user: button,
 				time: Date.now()
 			});
